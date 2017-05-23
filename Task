@@ -1,0 +1,38 @@
+package testforjava;
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+
+//C:\Users\zhakypbekov_30855\Desktop\test1//Записи.txt
+public class Task {
+
+	public static List<String> getFileTree(String root) throws IOException {
+        Queue<File[]> queue = new PriorityQueue<File[]>();
+		List<String> list = new ArrayList<String>();
+		File file = new File(root);
+		if(file.isDirectory()){
+			queue.add(file.listFiles());
+			while(!queue.isEmpty()){
+				File[] f = queue.poll();
+				for(File curFile : f){
+					if(curFile.isFile()){
+						list.add(curFile.getAbsolutePath());
+					} else {
+						queue.add(curFile.listFiles());
+					}
+				}
+			}
+		}
+		return list;
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        for(String s : getFileTree("C:\\Users\\zhakypbekov_30855\\Desktop\\test1")){
+        	System.out.println(s);
+        }
+    }
+}
+
+
